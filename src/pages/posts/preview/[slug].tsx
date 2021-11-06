@@ -29,13 +29,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export default function PostPreview({post}: PostPreviewProps) {
   const [session] = useSession()
-  
+  const router = useRouter()
 
   useEffect(() => {
-    const router = useRouter()
-    const { slug } = post
     if(session?.activeSubscription) {
-      router.push(`/posts/${slug}`)
+      router.push(`/posts/${post.slug}`)
     }
   }, [session])
 
@@ -50,8 +48,8 @@ export default function PostPreview({post}: PostPreviewProps) {
         <h1>{post.title}</h1>
         <time>{post.updatedAt}</time>
         <div 
-        className={`${styles.postContent} ${styles.previewContent}`}
-        dangerouslySetInnerHTML={{__html: post.content}}
+          className={`${styles.postContent} ${styles.previewContent}`}
+          dangerouslySetInnerHTML={{__html: post.content}}
         />
 
         <div className={styles.continueReading}>
